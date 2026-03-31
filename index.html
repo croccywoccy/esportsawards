@@ -184,6 +184,24 @@
                 </div>
             </div>
 
+            <div class="question">
+                <div class="question-title">
+                    Input your Discord username
+                    <span class="required">*</span>
+                </div>
+
+                <div style="padding: 12px; border: 1px solid #dadce0; border-radius: 4px;">
+                    <input
+                        type="text"
+                        id="discord"
+                        name="discord"
+                        placeholder="username#1234"
+                        required
+                        style="width: 100%; border: none; outline: none; font-size: 14px; color: #202124;"
+                    >
+                </div>
+            </div>
+
             <button type="submit" class="submit-btn">Submit</button>
 
             <div id="successMessage" class="success-message">
@@ -214,8 +232,15 @@
 
             // Get selected value
             const selected = document.querySelector('input[name="selection"]:checked');
+            const discord = document.getElementById('discord').value.trim();
 
             if (!selected) {
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            if (!discord) {
+                errorMessage.textContent = 'Please enter your Discord username.';
                 errorMessage.style.display = 'block';
                 return;
             }
@@ -235,6 +260,7 @@
                     },
                     body: JSON.stringify({
                         selection: selected.value,
+                        discord: discord,
                         timestamp: new Date().toISOString()
                     })
                 });
